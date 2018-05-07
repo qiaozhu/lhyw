@@ -1,0 +1,430 @@
+<style lang="less">
+    .userinfo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .userinfo-avatar {
+      margin-top: 35rpx;
+      width: 100rpx;
+      height: 100rpx;
+      border-radius: 50%;
+    }
+
+    .userinfo-nickname {
+      margin-top: 15rpx;
+      color: #aaa;
+    }
+    .page__hd {
+      padding: 40rpx;
+    }
+    .page__title {
+      margin-bottom: 15rpx;
+      text-align: left;
+      font-size: 20px;
+      font-weight: 400;
+    }
+    .page__desc {
+      margin-top: 5rpx;
+      color: #666;
+      text-align: left;
+      font-size: 16px;
+    }
+    .bind-btnbox {
+      width: 80%;
+      margin: 50rpx auto 0;
+    }
+    .mt-20 {
+      margin-top: 20rpx;
+    }
+    .font-green {
+      color: #00b300;
+    }
+</style>
+<template>
+    <view class="page">
+        <view hidden="{{!isOnload}}">
+            <view wx:if="{{isBind == false}}">
+                <view class="userinfo"
+                    @tap="handleViewTap">
+                    <image class="userinfo-avatar"
+                        src="{{ userInfo.avatarUrl }}"
+                        background-size="cover" />
+                    <view class="userinfo-nickname">{{ userInfo.nickName }}</view>
+                </view>
+                <view class="page__hd">
+                    <view class="page__title">物易云通</view>
+                    <view class="page__desc">您好，{{ userInfo.nickName }}。欢迎来到物易云通2017公司年会，请输入您的姓名和手机号完成签到。祝您好运！</view>
+                </view>
+                <view class="page__bd">
+                    <view class="weui-cells weui-cells_after-title mt-20">
+                        <view class="weui-cell weui-cell_input {{namenull?'weui-cell_warn':''}}">
+                            <view class="weui-cell__hd">
+                                <view class="weui-label">姓名</view>
+                            </view>
+                            <view class="weui-cell__bd">
+                                <input type="text"
+                                    bindinput="bindKeyName"
+                                    class="weui-input"
+                                    placeholder="请输入您的姓名" />
+                            </view>
+                            <view class="weui-cell__ft"
+                                hidden="{{!namenull}}">
+                                <icon type="warn"
+                                    size="23"
+                                    color="#E64340"></icon>
+                            </view>
+                        </view>
+                        <view class="weui-cell weui-cell_input {{phonenull?'weui-cell_warn':''}}">
+                            <view class="weui-cell__hd">
+                                <view class="weui-label">电话</view>
+                            </view>
+                            <view class="weui-cell__bd">
+                                <input type="number"
+                                    bindinput="bindKeyPhone"
+                                    class="weui-input"
+                                    placeholder="请输入您的手机号码" />
+                            </view>
+                            <view class="weui-cell__ft"
+                                hidden="{{!phonenull}}">
+                                <icon type="warn"
+                                    size="23"
+                                    color="#E64340"></icon>
+                            </view>
+                        </view>
+                    </view>
+                    <view class="bind-btnbox">
+                        <button class="weui-btn"
+                            type="primary"
+                            @tap="handleSign">签 到</button>
+                    </view>
+                    <view class="zan-btns"
+                        style="margin-top: 30vh;">
+                        <button class="zan-btn"
+                            @tap="showToast">
+                            显示toast
+                        </button>
+                    </view>
+                </view>
+            </view>
+            <view wx:else>
+                <view class="userinfo"
+                    @tap="handleViewTap">
+                    <image class="userinfo-avatar"
+                        src="{{ userInfo.avatarUrl }}"
+                        background-size="cover" />
+                    <view class="userinfo-nickname">{{ userInfo.name }}</view>
+                </view>
+                <view class="page__hd">
+                    <view class="page__title">物易云通</view>
+                    <view class="page__desc">您已成功签到，年会期间会有多轮抽奖，祝您好运！</view>
+
+                    <!-- <button class="weui-btn" type="primary" @tap="handleSign" @tap="seneSocketMsg">签 到</button> -->
+                </view>
+                <view class="page__bd">
+                    <view class="weui-panel weui-panel_access">
+                        <view class="weui-panel__hd font-green">年会节目列表</view>
+                        <view class="weui-panel__bd">
+                            <view class="weui-media-box weui-media-box_text">
+                                <view class="weui-media-box__title weui-media-box__title_in-text">今天是个好日子</view>
+                                <view class="weui-media-box__desc">由公司运营部集体合唱。</view>
+                                <view class="weui-media-box__info">
+                                    <view class="weui-media-box__info__meta">运营部</view>
+                                    <view class="weui-media-box__info__meta">合唱</view>
+                                    <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">乔柱、何斌、黄梦霞等</view>
+                                </view>
+                            </view>
+                            <view class="weui-media-box weui-media-box_text">
+                                <view class="weui-media-box__title weui-media-box__title_in-text">戏说神探夏洛克</view>
+                                <view class="weui-media-box__desc">幽默搞笑的相声剧。</view>
+                                <view class="weui-media-box__info">
+                                    <view class="weui-media-box__info__meta">研发部</view>
+                                    <view class="weui-media-box__info__meta">相声</view>
+                                    <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">陈宇轩、刘畅、段志波、徐梦清</view>
+                                </view>
+                            </view>
+                        </view>
+                        <view class="weui-panel__ft">
+                            <view class="weui-cell weui-cell_access weui-cell_link">
+                                <view class="weui-cell__bd">查看更多</view>
+                                <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+                            </view>
+                        </view>
+                    </view>
+                    <view>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <zanToast></zanToast>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy'
+import Panel from '@/components/panel' // alias example
+import Toast from 'wepy-com-toast'
+import zanToast from '../../components/zan/zan-toast'
+
+export default class MyCenterIndex extends wepy.page {
+    // 设置当前页window 会覆盖app文件中的配置
+    config = {
+        navigationBarTitleText: '物易云通年会'
+    }
+    components = {
+        panel: Panel,
+        toast: Toast,
+        zanToast
+    }
+
+
+    data = {
+        isOnload: false,
+        isBind: false,
+        nameval: '',
+        phoneval: '',
+        namenull: false,
+        phonenull: false,
+        mynum: 20,
+        openId: '',
+        userInfo: {},
+        socketOpen: false,
+        socketMsgQueue: [],
+        socketConNum: 0
+    }
+
+    methods = {
+        handleViewTap() {
+            console.log('头像');
+        },
+        // 小程序没有双向绑定 需要自己监听文本框
+        bindKeyName(e) {
+            // 校验姓名2-20位 支持.
+            if (e.detail.value == '') {
+                this.namenull = true;
+            } else if (!/^[\u4E00-\u9FA5\uf900-\ufa2d·s]{2,20}$/.test(e.detail.value)) {
+                this.namenull = true;
+            } else {
+                this.namenull = false;
+            }
+            this.nameval = e.detail.value;
+            this.$apply();
+        },
+        bindKeyPhone(e) {
+            // 校验手机号
+            if (e.detail.value == '') {
+                this.phonenull = true;
+            } else if (!/^1[0-9]{10}$/.test(e.detail.value)) {
+                this.phonenull = true;
+            } else {
+                this.phonenull = false;
+            }
+            this.phoneval = e.detail.value;
+            this.$apply();
+        },
+        // 签到
+        handleSign() {
+            if (this.nameval == '') this.namenull = true;
+            if (this.phoneval == '') this.phonenull = true;
+
+            if (this.namenull || this.phonenull) return;
+
+
+            let self = this
+            // 查询该手机号是否已被使用
+            wepy.request({
+                url: '/WXClass/queryWXuser',
+                method: 'GET',
+                data: {
+                    phone: this.nameval
+                }
+            }).then((response) => {
+                if (response.status == 1) {
+                    wx.showToast({
+                        title: response.msg,
+                        icon: 'error',
+                        duration: 2000
+                    });
+                    return;
+                }
+                if (response.code == 103) {
+                    wx.showModal({
+                        content: '该手机号码已被使用，请更换手机号码尝试',
+                        showCancel: false,
+                        mask: true,
+                        success: function (res) {
+                            console.log(res.confirm)
+                        }
+                    });
+                    return;
+                }
+                // 执行签到
+                wepy.request({
+                    url: '/WXClass/addWXuser',
+                    method: 'POST',
+                    data: {
+                        openId: self.openId,
+                        name: self.nameval,
+                        phone: self.phoneval,
+                        ...self.userInfo
+                    }
+                }).then((response) => {
+                    if (response.status == 1) {
+                        wx.showToast({
+                            title: response.msg,
+                            icon: 'error',
+                            duration: 2000
+                        });
+                        return;
+                    }
+                    // wx.showToast({
+                    //     title: '签到成功',
+                    //     icon: 'success',
+                    //     mask: true,
+                    //     duration: 2000
+                    // });
+                    self.isBind = true;
+                    self.$apply();
+                    // self.socketInit();
+                })
+
+            })
+        }
+    }
+
+
+    onLoad() {
+        let self = this
+        // 获取到用户信息
+
+        const userData = this.$parent.getUserData()
+        // 将用户信息发送到服务器 查询该openid是否已注册
+        // 如果已经注册 将更新用户信息(更新微信相关信息 openid phone name不会更新)
+        wepy.request({
+            url: '/WXClass/queryWXuserOpenid',
+            method: 'POST',
+            data: {
+                openId: userData.openId,
+                ...userData.userInfo
+            }
+        }).then((response) => {
+            if (response.status == 1) {
+                self.$invoke('zanToast', 'showZanToast', {
+                    title: response.msg,
+                    timeout: 2000
+                })
+            } else {
+                self.$invoke('zanToast', 'showZanToast', {
+                    title: response.msg,
+                    timeout: 2000
+                })
+                if (response.code == 101) {
+                    // 该用户已注册 用户信息更新成功
+                    self.isBind = true;
+                    self.userInfo = response.data;
+                    self.openId = userData.openId;
+                    wx.setNavigationBarTitle({
+                        title: '物易云通年会'
+                    })
+                    // self.socketInit();
+                } else {
+                    //未注册
+                    self.isBind = false;
+                    self.userInfo = userData.userInfo;
+                    self.openId = userData.openId;
+                    wx.setNavigationBarTitle({
+                        title: '年会签到'
+                    })
+                }
+                self.isOnload = true;
+                self.$apply();
+            }
+        })
+    }
+    // 下拉刷新
+    onPullDownRefresh() {
+        wx.showLoading({
+            mask: true,
+            title: '加载中',
+        })
+        setTimeout(() => {
+            wx.hideLoading();
+            wx.stopPullDownRefresh();
+        }, 3000);
+    }
+    getGUID() {
+        return new Date().getTime() + "" + Math.floor(Math.random() * 899 + 100);
+    }
+    seneSocketMsg() {
+        var time = new Date().getTime().toString();
+        console.log('发送消息：' + time);
+        this.sendSocketMessage(time)
+    }
+    socketInit() {
+        var self = this;
+        wx.connectSocket({
+            url: 'wss://qiaoserver.natapp4.cc'
+        })
+
+        wx.onSocketOpen(function (res) {
+            console.log('websocket opened');
+            self.socketOpen = true;
+            self.socketConNum = 0;
+            for (var i = 0; i < self.socketMsgQueue.length; i++) {
+                self.sendSocketMessage(self.socketMsgQueue[i])
+            }
+            self.socketMsgQueue = []
+        })
+        // 连接失败的事件
+        wx.onSocketError(function (res) {
+            console.log('websocket fail');
+            console.log(res);
+            self.heartCheck();
+        })
+        // 收到服务器的消息时触发的事件：
+        wx.onSocketMessage(function (res) {
+            console.log('收到消息: ' + JSON.stringify(res.data));
+        })
+        // socket关闭触发事件
+        wx.onSocketClose(function (res) {
+            console.log('WebSocket 已关闭！');
+            console.log(res);
+            // 异常关闭 重新检查心跳
+            if (res.code != 1000) {
+                self.heartCheck();
+            }
+        })
+    }
+    sendSocketMessage(msg) {
+        if (this.socketOpen) {
+            wx.sendSocketMessage({
+                data: msg
+            })
+        } else {
+            this.socketMsgQueue.push(msg)
+        }
+    }
+    // 检查心跳重连
+    heartCheck() {
+        // 当5次链接都失败 不再链接
+        if (this.socketConNum == 5) {
+            wx.showToast({
+                title: 'socket链接失败，请检查网络或询问联系器管理员',
+                icon: 'error',
+                duration: 2000
+            });
+        } else {
+            wx.connectSocket({
+                url: 'wss://qiaoserver.natapp4.cc'
+            })
+            this.socketConNum++;
+        }
+    }
+    showToast() {
+        console.log(111);
+        this.$invoke('zanToast', 'showZanToast', { title: 'Toast的内容 Wepy', timeout: 2000 })
+    }
+}
+
+</script>
