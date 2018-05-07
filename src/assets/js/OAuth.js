@@ -1,7 +1,8 @@
 import wepy from 'wepy'
-let auth = {
+let OAuth = {
+    isLoading: false,
     // 微信登录 获取临时登录凭证code
-    async getAuthCode() {
+    getAuthCode() {
         return new Promise((resolve, reject) => {
             wx.login({
                 success: res => {
@@ -29,6 +30,8 @@ let auth = {
     },
     // 解密用户数据
     async decryptUserInfo() {
+        if (this.isLoading == true) return;
+        this.isLoading = true;
         const userData = await this.getUserInfo();
         return new Promise((resolve, reject) => {
             // 将code 和 用户数据 发送到后台
@@ -41,9 +44,10 @@ let auth = {
                     'content-type': 'application/json'
                 },
             }).then((response) => {
+                this.isLoading = false;
                 resolve(response)
             })
         });
     }
 }
-export default auth
+export default OAuth

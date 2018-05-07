@@ -294,21 +294,26 @@ export default class MyCenterIndex extends wepy.page {
     }
 
 
-    onLoad() {
-        let self = this
+    async onLoad() {
         // 获取到用户信息
-
-        const userData = this.$parent.getUserData()
+        const userData = await this.$parent.getUserData();
+        console.log(userData);
+        this.init(userData);
+    }
+    async init(userData) {
+        let self = this
         // 将用户信息发送到服务器 查询该openid是否已注册
         // 如果已经注册 将更新用户信息(更新微信相关信息 openid phone name不会更新)
         wepy.request({
             url: '/WXClass/queryWXuserOpenid',
             method: 'POST',
-            data: {
-                openId: userData.openId,
-                ...userData.userInfo
-            }
+            data: { ...userData }
         }).then((response) => {
+
+            // const userData2 = await self.$parent.getUserData(true);
+            // self.init();
+            // return;
+
             if (response.status == 1) {
                 self.$invoke('zanToast', 'showZanToast', {
                     title: response.msg,
