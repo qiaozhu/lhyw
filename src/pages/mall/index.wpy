@@ -10,7 +10,7 @@ import Toast from 'wepy-com-toast'
 export default class MallIndex extends wepy.page {
     // 设置当前页window 会覆盖app文件中的配置
     config = {
-        navigationBarTitleText: '我的'
+        navigationBarTitleText: '商城'
     }
     components = {
         toast: Toast

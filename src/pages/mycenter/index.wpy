@@ -170,7 +170,7 @@ import zanToast from '../../components/zan/zan-toast'
 export default class MyCenterIndex extends wepy.page {
     // 设置当前页window 会覆盖app文件中的配置
     config = {
-        navigationBarTitleText: '物易云通年会'
+        navigationBarTitleText: '我的'
     }
     components = {
         panel: Panel,
