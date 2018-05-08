@@ -59,8 +59,6 @@ let OAuth = {
         return await new Promise((resolve, reject) => {
             // 将code 和 用户数据 发送到后台
             // 后台根据Appid密匙 和 res.code换取 openId, sessionKey, unionId
-            let url = '';
-            if (config) {}
             wx.request({
                 url: `${config.baseurl}/WXAuthor/getAuthentication`,
                 data: userData,
