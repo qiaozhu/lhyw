@@ -1,11 +1,13 @@
-<style lang="less">
-    .container {
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-between;
-      box-sizing: border-box;
+<style lang="scss">
+    @import './assets/css/font.scss';
+    @import './assets/css/iconfont.scss';
+    page {
+      background-color: #f9f9f9;
+      color: #222;
+      font-size: 14px;
+    }
+    .text-c {
+      text-align: center;
     }
 </style>
 <script>
@@ -27,10 +29,12 @@ export default class extends wepy.app {
             'pages/mall/index'
         ],
         window: {
-            backgroundTextStyle: 'light',
-            navigationBarBackgroundColor: '#fff',
-            navigationBarTitleText: 'WeChat',
-            navigationBarTextStyle: 'black'
+            navigationBarBackgroundColor: '#FAFAFA',
+            navigationBarTitleText: '南湖印务',
+            navigationBarTextStyle: 'black',
+            backgroundTextStyle: 'dark',
+            backgroundColor: '#F9F9F9',
+            enablePullDownRefresh: true//下拉刷新
         },
         tabBar: {
             color: "#AAAAAA",
@@ -51,7 +55,8 @@ export default class extends wepy.app {
                 selectedIconPath: 'assets/image/icon_API_HL.png',
                 text: '我的'
             }]
-        }
+        },
+        debug: true
     }
     globalData = {}
 
@@ -60,51 +65,6 @@ export default class extends wepy.app {
         super()//将指针指向app
         this.use('requestfix')//处理并发
         this.use('promisify');//使用promise
-
-        // 请求拦截
-        this.intercept('request', {
-            config(config) {
-                // 设置请求url前缀
-                config.url = 'http://192.168.2.143:3000' + config.url;
-                config.timestamp = +new Date();
-                // 请求头带上Storage中的Authentication
-                const udata = wx.getStorageSync('userInfo');
-                config.header = {
-                    Authentication: udata.Authentication || ''
-                };
-                wx.showLoading({
-                    mask: true,
-                    title: '加载中',
-                })
-                return config;
-            },
-            success(response) {
-                if (response.statusCode && response.statusCode == 200) {
-                    return response.data
-                } else {
-                    // session过期
-                    if (response.statusCode == 420420) {
-                        self.$parent.getUserData(true);
-                    } else {
-                        wx.showToast({
-                            title: '服务器异常:' + response.statusCode,
-                            icon: 'error',
-                            duration: 2000
-                        });
-                    }
-                }
-            },
-            fail(response) {
-                wx.showToast({
-                    title: '服务器异常',
-                    icon: 'error',
-                    duration: 2000
-                });
-            },
-            complete(response) {
-                wx.hideLoading()
-            }
-        })
     }
 
     async onLaunch(options) {
@@ -140,38 +100,22 @@ export default class extends wepy.app {
             fail: function () {
                 console.log(2);
                 // session_key 已经失效 需要重新执行登录流程
-                // OAuth.decryptUserInfo().then((response) => {
-                //     wx.setStorageSync('userInfo', response.data);
-                //     return response.data;
-                // });
             }
         })
     }
-    // 主页放置获取用户信息的方法  子页需要的时候调用
-    // forceRequest是否强制发送请求获取(当子页面request返回session过期 重新登录使用 登录完成后子页面重新执行onload)
-    // 子页面应尽量避免onload时发送多个异步请求 防止session过期零界点异常
-    getUserData(forceRequest = false) {
-        const self = this;
-        return new Promise((resolve, reject) => {
-            try {
-                // 先读取本地 如果有直接返回 否则发送请求获取
-                var udata = wx.getStorageSync('userInfo');
-                if (udata) {
-                    resolve(udata);
-                } else {
-                    OAuth.decryptUserInfo().then((response) => {
-                        wx.setStorageSync('userInfo', response.data);
-                        resolve(response.data);
-                    });
-                }
-            } catch (e) {
-                OAuth.decryptUserInfo().then((response) => {
-                    wx.setStorageSync('userInfo', response.data);
-                    resolve(response.data);
-                });
+    // 主页放置校验session的方法  子页需要的时候调用
+    checkLogin() {
+        try {
+            // 先读取本地 如果有直接返回 否则发送请求获取
+            var udata = wx.getStorageSync('Authentication');
+            if (udata) {
+                return udata;
+            } else {
+                return OAuth.reqLogin();
             }
-
-        })
+        } catch (e) {
+            return OAuth.reqLogin();
+        }
     }
     queryWXuser(phone) {
         return wepy.request({

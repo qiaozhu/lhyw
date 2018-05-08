@@ -1,67 +1,22 @@
-<style lang="sass">
+<style lang="scss">
+
 </style>
 <template>
-
+    <view>预约打印</view>
 </template>
 <script>
 
 import wepy from 'wepy'
-import Toast from 'wepy-com-toast'
 export default class ReserveIndex extends wepy.page {
-    // 设置当前页window 会覆盖app文件中的配置
     config = {
         navigationBarTitleText: '预约打印'
     }
-    components = {
-        toast: Toast
-    }
+    components = {}
 
+    data = {}
 
-    data = {
-        isOnload: false,
-        isBind: false,
-        nameval: '',
-        phoneval: '',
-        namenull: false,
-        phonenull: false,
-        mynum: 20,
-        openId: '',
-        userInfo: {},
-        socketOpen: false,
-        socketMsgQueue: [],
-        socketConNum: 0
-    }
+    methods = {}
 
-    methods = {
-        handleViewTap() {
-            console.log('头像');
-        },
-        // 小程序没有双向绑定 需要自己监听文本框
-        bindKeyName(e) {
-            // 校验姓名2-20位 支持.
-            if (e.detail.value == '') {
-                this.namenull = true;
-            } else if (!/^[\u4E00-\u9FA5\uf900-\ufa2d·s]{2,20}$/.test(e.detail.value)) {
-                this.namenull = true;
-            } else {
-                this.namenull = false;
-            }
-            this.nameval = e.detail.value;
-            this.$apply();
-        },
-        bindKeyPhone(e) {
-            // 校验手机号
-            if (e.detail.value == '') {
-                this.phonenull = true;
-            } else if (!/^1[0-9]{10}$/.test(e.detail.value)) {
-                this.phonenull = true;
-            } else {
-                this.phonenull = false;
-            }
-            this.phoneval = e.detail.value;
-            this.$apply();
-        }
-    }
     onLoad() { }
 }
 </script>

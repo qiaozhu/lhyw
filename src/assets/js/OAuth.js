@@ -1,6 +1,5 @@
-import wepy from 'wepy'
+import config from './config';
 let OAuth = {
-    isLoading: false,
     // 微信登录 获取临时登录凭证code
     getAuthCode() {
         return new Promise((resolve, reject) => {
@@ -28,26 +27,70 @@ let OAuth = {
             })
         })
     },
-    // 解密用户数据
-    async decryptUserInfo() {
-        if (this.isLoading == true) return;
-        this.isLoading = true;
+    // 获取登录凭证包含其他铭感数据
+    async reqLoginAll() {
         const userData = await this.getUserInfo();
-        return new Promise((resolve, reject) => {
+        return await new Promise((resolve, reject) => {
             // 将code 和 用户数据 发送到后台
             // 后台根据Appid密匙 和 res.code换取 openId, sessionKey, unionId
-            wepy.request({
-                url: '/WXAuthor/analysis',
+            let url = '';
+            if (config) {}
+            wx.request({
+                url: `${config.baseurl}/WXAuthor/analysis`,
                 data: userData,
                 method: 'POST',
                 header: {
                     'content-type': 'application/json'
                 },
-            }).then((response) => {
-                this.isLoading = false;
-                resolve(response)
+                success: function (response) {
+                    wx.setStorageSync('userInfo', response.data.data);
+                    wx.setStorageSync('Authentication', response.data.data.Authentication);
+                    resolve(response.data.data.Authentication)
+                },
+                fail: function (err) {
+                    reject(err)
+                }
             })
         });
+    },
+    // 获取登录凭证
+    async reqLogin() {
+        const userData = await this.getUserInfo();
+        return await new Promise((resolve, reject) => {
+            // 将code 和 用户数据 发送到后台
+            // 后台根据Appid密匙 和 res.code换取 openId, sessionKey, unionId
+            let url = '';
+            if (config) {}
+            wx.request({
+                url: `${config.baseurl}/WXAuthor/getAuthentication`,
+                data: userData,
+                method: 'POST',
+                header: {
+                    'content-type': 'application/json'
+                },
+                success: function (response) {
+                    wx.setStorageSync('Authentication', response.data.data.Authentication);
+                    resolve(response.data.data.Authentication)
+                },
+                fail: function (err) {
+                    reject(err)
+                }
+            })
+        });
+    },
+    // 校验Authentication是否存在
+    checkToken() {
+        try {
+            // 先读取本地 如果有直接返回 否则发送请求获取
+            var udata = wx.getStorageSync('Authentication');
+            if (udata) {
+                return udata;
+            } else {
+                return this.reqLogin();
+            }
+        } catch (e) {
+            return this.reqLogin();
+        }
     }
 }
 export default OAuth
