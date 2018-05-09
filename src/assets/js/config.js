@@ -7,7 +7,7 @@ console.log('this node_env is ' + NODE_ENV);
 
 // // 内网配置
 const devconfig = {
-    baseurl: 'http://192.168.2.143:3000',
+    baseurl: 'http://192.168.11.82:3000',
     appcode: '200362',
     version: '1.0',
     uploadurl: '../sjbWeb/upload'

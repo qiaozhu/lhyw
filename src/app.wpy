@@ -48,11 +48,11 @@ export default class extends wepy.app {
                 pagePath: 'pages/mall/index',
                 iconPath: 'assets/image/icon_API.png',
                 selectedIconPath: 'assets/image/icon_API_HL.png',
-                text: '商城'
+                text: '资料库'
             }, {
                 pagePath: 'pages/mycenter/index',
-                iconPath: 'assets/image/icon_API.png',
-                selectedIconPath: 'assets/image/icon_API_HL.png',
+                iconPath: 'assets/image/wechat.png',
+                selectedIconPath: 'assets/image/wechatHL.png',
                 text: '我的'
             }]
         },

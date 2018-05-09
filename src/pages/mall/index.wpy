@@ -1,15 +1,78 @@
 <style lang="scss">
-
+    @import '../../components/zanui/color.scss';
+    @import '../../components/zanui/panel.scss';
+    @import '../../components/zanui/card.scss';
+    @import '../../components/zanui/tag.scss';
+    .ml-10 {
+      margin-left: 10px;
+    }
+    .zan-card {
+      margin-top: 15px;
+      background: #ffffff;
+    }
 </style>
 <template>
-    <view>商城</view>
+    <view class="pages">
+        <view class="zan-card">
+            <view class="zan-card__thumb">
+                <image class="zan-card__img"
+                    src="https://img.yzcdn.cn/upload_files/2016/11/25/FpqPXlrMRjKwJs8VdTu3ZDJCj4j5.jpeg?imageView2/2/w/200/h/200/q/90/format/jpeg"
+                    mode="aspectFit" />
+            </view>
+            <view class="zan-card__detail">
+                <view class="zan-card__detail-row">
+                    <view class="zan-card__right-col">¥ 999.99</view>
+                    <view class="zan-card__left-col zan-ellipsis--l2">
+                        2018 英语6级题库 理工大出考题
+                    </view>
+                </view>
+                <view class="zan-card__detail-row zan-c-gray-darker">
+                    <view class="zan-card__right-col">x2</view>
+                    <view class="zan-card__left-col">
+                        100题，附答案。
+                    </view>
+                </view>
+                <view class="zan-card__detail-row zan-c-gray-darker">
+                    <view class="zan-tag zan-tag--danger zan-tag--plain">英语</view>
+                    <view class="zan-tag zan-tag--danger zan-tag--plain ml-10">6级</view>
+                    <view class="zan-tag zan-tag--danger zan-tag--plain ml-10">雅思</view>
+                </view>
+            </view>
+        </view>
+        <view class="zan-card">
+            <view class="zan-card__thumb">
+                <image class="zan-card__img"
+                    src="https://img.yzcdn.cn/upload_files/2016/11/25/FpqPXlrMRjKwJs8VdTu3ZDJCj4j5.jpeg?imageView2/2/w/200/h/200/q/90/format/jpeg"
+                    mode="aspectFit" />
+            </view>
+            <view class="zan-card__detail">
+                <view class="zan-card__detail-row">
+                    <view class="zan-card__right-col">¥ 999.99</view>
+                    <view class="zan-card__left-col zan-ellipsis--l2">
+                        2018 英语6级题库 理工大出考题
+                    </view>
+                </view>
+                <view class="zan-card__detail-row zan-c-gray-darker">
+                    <view class="zan-card__right-col">x2</view>
+                    <view class="zan-card__left-col">
+                        100题，附答案。
+                    </view>
+                </view>
+                <view class="zan-card__detail-row zan-c-gray-darker">
+                    <view class="zan-tag zan-tag--danger zan-tag--plain">英语</view>
+                    <view class="zan-tag zan-tag--danger zan-tag--plain ml-10">6级</view>
+                    <view class="zan-tag zan-tag--danger zan-tag--plain ml-10">雅思</view>
+                </view>
+            </view>
+        </view>
+    </view>
 </template>
 <script>
 
 import wepy from 'wepy'
-export default class ReserveIndex extends wepy.page {
+export default class MallIndex extends wepy.page {
     config = {
-        navigationBarTitleText: '商城'
+        navigationBarTitleText: '资料库'
     }
     components = {}
 

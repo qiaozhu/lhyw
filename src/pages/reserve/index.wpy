@@ -1,8 +1,31 @@
 <style lang="scss">
-
+    @import '../../components/zanui/color.scss';
+    @import '../../components/zanui/icon.scss';
+    @import '../../components/zanui/btn.scss';
+    .doc-title {
+      padding: 15px 0;
+      margin: 10px 15px;
+      line-height: 25px;
+      font-size: 25px;
+      color: #222;
+    }
+    .zan-btns {
+      margin: 10px 15px;
+    }
 </style>
 <template>
-    <view>预约打印</view>
+    <view class="page">
+        <view class="text-c">
+            <view class="zan-icon zan-icon-send-gift zan-c-red"
+                style="font-size:60px;margin-top:8px;"></view>
+        </view>
+        <view class="doc-title">预约打印</view>
+        <view style="padding:5px 15px 12px">选择门店-上传文件-预约打印-到店取货，告别排队不用等。</view>
+
+        <view class="zan-btns">
+            <button class="zan-btn zan-btn--danger">预约打印</button>
+        </view>
+    </view>
 </template>
 <script>
 

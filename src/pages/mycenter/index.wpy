@@ -90,8 +90,8 @@
             </view>
         </view>
         <view class="zan-panel">
-            <zanNoticebar1 :text="text"
-                componentId="static1"></zanNoticebar1>
+            <zanNoticebar :text="text"
+                componentId="static1"></zanNoticebar>
         </view>
         <view class="zan-panel panel-item">
             <view class="zan-cell">
@@ -154,12 +154,12 @@ export default class MyCenterIndex extends wepy.page {
     }
     components = {
         zanToast,
-        zanNoticebar1: zanNoticebar
+        zanNoticebar: zanNoticebar
     }
 
     data = {
         userInfo: {},
-        text: '足协杯战线连续第2年上演广州德比战，上赛季半决赛上恒大以两回合5-3的总比分淘汰富力。'
+        text: '恭喜我罗41分7板10助攻总比分4-1击败爵士，挺进西决！。'
 
     }
 
@@ -170,7 +170,7 @@ export default class MyCenterIndex extends wepy.page {
     }
     onReady() {
         // 滚动通告栏需要initScroll
-        this.$invoke('zanNoticebar1', 'initZanNoticeBarScroll')
+        this.$invoke('zanNoticebar', 'initZanNoticeBarScroll')
     }
     async init() {
         // 获取到用户信息
@@ -184,6 +184,7 @@ export default class MyCenterIndex extends wepy.page {
                 self.$apply();
             }
         })
+        return;
         XHR.http({
             url: '/WXClass/queryWXuserOpenid',
             method: 'POST',
