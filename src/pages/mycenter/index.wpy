@@ -1,209 +1,202 @@
 <style lang="scss">
-    @import '../../components/zanui/color.scss';
-    @import '../../components/zanui/icon.scss';
-    @import '../../components/zanui/panel.scss';
-    @import '../../components/zanui/row.scss';
-    @import '../../components/zanui/col.scss';
-    @import '../../components/zanui/cell.scss';
-    .pages {
-      font-size: 16px;
-    }
-    .avatar-bg {
-      width: 100%;
-      height: 160px;
-      background: #ff4444;
-      text-align: center;
-    }
-    .avatar-img {
-      width: 90px;
-      height: 90px;
-      border-radius: 50%;
-      margin-top: 25px;
-    }
-    .avatar-name {
-      height: 20px;
-      line-height: 20px;
-      margin-top: 0px;
-      color: #ffffff;
-    }
-    .zan-col {
-      height: 90px;
-      text-align: center;
-    }
-    .panel-item .zan-cell__bd {
-      font-size: 16px;
-    }
-    .order-item-img {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      margin-top: 15px;
-    }
-    .order-item-name {
-      height: 30px;
-      line-height: 30px;
-      margin-top: 0px;
-    }
-    .footer-kefu {
-      height: 40px;
-      line-height: 40px;
-      text-align: center;
-      color: #666;
-      font-size: 14px;
-    }
+  @import '../../components/zanui/color.scss';
+  @import '../../components/zanui/icon.scss';
+  @import '../../components/zanui/panel.scss';
+  @import '../../components/zanui/row.scss';
+  @import '../../components/zanui/col.scss';
+  @import '../../components/zanui/cell.scss';
+  @import '../../style/customize.scss';
+  .avatar-bg {
+    width: 100%;
+    height: 160px;
+    background: #ff4444;
+    text-align: center;
+  }
+  .avatar-img {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    margin-top: 25px;
+  }
+  .avatar-name {
+    height: 20px;
+    line-height: 20px;
+    margin-top: 0px;
+    color: #ffffff;
+  }
+  .zan-col {
+    height: 90px;
+    text-align: center;
+  }
+  .order-item-img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-top: 15px;
+  }
+  .order-item-name {
+    height: 30px;
+    line-height: 30px;
+    margin-top: 0px;
+  }
+  .footer-kefu {
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    color: #666;
+    font-size: 14px;
+  }
 </style>
 <template>
-    <view class="pages">
-        <view class="avatar-bg">
-            <image class="avatar-img"
-                src="{{userInfo.avatarUrl}}"
-                alt="">
-            </image>
-            <view class="avatar-name">{{userInfo.nickName}}</view>
-        </view>
-        <view class="zan-panel text-c">
-            <view class="doc-title zan-hairline--bottom"
-                style="margin:10px 0;font-size:15px;">
-                <text>—</text>
-                我的订单
-                <text>—</text>
-            </view>
-            <view class="zan-row">
-                <view class="zan-col zan-col-12">
-                    <!-- <image class="order-item-img"
+  <view class="pages">
+    <view class="avatar-bg">
+      <image class="avatar-img"
+        src="{{userInfo.avatarUrl}}"
+        alt="">
+      </image>
+      <view class="avatar-name">{{userInfo.nickName}}</view>
+    </view>
+    <view class="zan-panel zan-center">
+      <view class="doc-title zan-hairline--bottom"
+        style="margin:10px 0;font-size:15px;">
+        <text>—</text>
+        我的订单
+        <text>—</text>
+      </view>
+      <view class="zan-row">
+        <view class="zan-col zan-col-12">
+          <!-- <image class="order-item-img"
                         src="../../assets/image/icon_component_HL.png"
                         alt="">
                     </image> -->
-                    <view class="zan-icon zan-icon-send-gift zan-c-red"
-                        style="font-size:24px;margin-top:8px;"></view>
-                    <view class="order-item-name">预约订单</view>
-                </view>
-                <view class="zan-col zan-col-12">
-                    <!-- <image class="order-item-img"
+          <view class="zan-icon zan-icon-send-gift zan-c-red"
+            style="font-size:24px;margin-top:8px;"></view>
+          <view class="order-item-name">预约订单</view>
+        </view>
+        <view class="zan-col zan-col-12">
+          <!-- <image class="order-item-img"
                         src="../../assets/image/icon_API_HL.png"
                         alt="">
                     </image> -->
-                    <view class="zan-icon zan-icon-description zan-c-red"
-                        style="font-size:24px;margin-top:8px;"></view>
-                    <view class="order-item-name">商城订单</view>
-                </view>
-            </view>
+          <view class="zan-icon zan-icon-description zan-c-red"
+            style="font-size:24px;margin-top:8px;"></view>
+          <view class="order-item-name">商城订单</view>
         </view>
-        <view class="zan-panel">
-            <zanNoticebar :text="text"
-                componentId="static1"></zanNoticebar>
-        </view>
-        <view class="zan-panel panel-item">
-            <view class="zan-cell">
-                <view class="zan-cell__bd">我的文件</view>
-                <view class="zan-cell__ft">
-                    <text class="iconfont icon-you zan-c-gray"></text>
-                </view>
-            </view>
-            <view class="zan-cell">
-                <view class="zan-cell__bd">会员积分</view>
-                <view class="zan-cell__ft">
-                    <text class="iconfont icon-you zan-c-gray"></text>
-                </view>
-            </view>
-            <view class="zan-cell">
-                <view class="zan-cell__bd">优惠卡券</view>
-                <view class="zan-cell__ft">
-                    <text class="iconfont icon-you zan-c-gray"></text>
-                </view>
-            </view>
-        </view>
-        <view class="zan-panel panel-item">
-            <view class="zan-cell">
-                <view class="zan-cell__bd">个人资料</view>
-                <view class="zan-cell__ft">
-                    <text class="iconfont icon-you zan-c-gray"></text>
-                </view>
-            </view>
-            <view class="zan-cell">
-                <view class="zan-cell__bd">绑定手机</view>
-                <view class="zan-cell__ft">
-                    <text class="iconfont icon-you zan-c-gray"></text>
-                </view>
-            </view>
-            <view class="zan-cell">
-                <view class="zan-cell__bd">意见反馈</view>
-                <view class="zan-cell__ft">
-                    <text class="iconfont icon-you zan-c-gray"></text>
-                </view>
-            </view>
-        </view>
-        <view class="footer-kefu">
-            <text>©南湖印务 联系电话：李</text>
-            <text class="zan-c-orange">18671451730</text>
-        </view>
-        <zanToast></zanToast>
+      </view>
     </view>
+    <view class="zan-panel">
+      <zanNoticebar :text="text"
+        componentId="static1"></zanNoticebar>
+    </view>
+    <view class="zan-panel panel-item">
+      <view class="zan-cell">
+        <view class="zan-cell__bd">我的文件</view>
+        <view class="zan-cell__ft">
+          <text class="iconfont icon-you zan-c-gray"></text>
+        </view>
+      </view>
+      <view class="zan-cell">
+        <view class="zan-cell__bd">会员积分</view>
+        <view class="zan-cell__ft">
+          <text class="iconfont icon-you zan-c-gray"></text>
+        </view>
+      </view>
+      <view class="zan-cell">
+        <view class="zan-cell__bd">优惠卡券</view>
+        <view class="zan-cell__ft">
+          <text class="iconfont icon-you zan-c-gray"></text>
+        </view>
+      </view>
+    </view>
+    <view class="zan-panel panel-item">
+      <view class="zan-cell">
+        <view class="zan-cell__bd">个人资料</view>
+        <view class="zan-cell__ft">
+          <text class="iconfont icon-you zan-c-gray"></text>
+        </view>
+      </view>
+      <view class="zan-cell">
+        <view class="zan-cell__bd">绑定手机</view>
+        <view class="zan-cell__ft">
+          <text class="iconfont icon-you zan-c-gray"></text>
+        </view>
+      </view>
+      <view class="zan-cell">
+        <view class="zan-cell__bd">意见反馈</view>
+        <view class="zan-cell__ft">
+          <text class="iconfont icon-you zan-c-gray"></text>
+        </view>
+      </view>
+    </view>
+    <view class="footer-kefu">
+      <text>©南湖印务 联系电话：李</text>
+      <text class="zan-c-orange">18671451730</text>
+    </view>
+    <zanToast></zanToast>
+  </view>
 </template>
 
 <script>
 import wepy from 'wepy'
-import XHR from '../../assets/js/XHR'
-import OAuth from '../../assets/js/OAuth'
-import zanToast from '../../components/zan/zan-toast'
-import zanNoticebar from '../../components/zan/zan-noticebar'
+import API from '@/assets/api/mall.api'
+import XHR from '@/utils/XHR'
+import OAuth from '@/utils/OAuth'
+import zanToast from '@/components/zan/zan-toast'
+import zanNoticebar from '@/components/zan/zan-noticebar'
 
 export default class MyCenterIndex extends wepy.page {
-    config = {
-        navigationBarTitleText: '我的'
-    }
-    components = {
-        zanToast,
-        zanNoticebar: zanNoticebar
-    }
+  config = {
+    navigationBarTitleText: '我的'
+  }
+  components = {
+    zanToast,
+    zanNoticebar: zanNoticebar
+  }
 
-    data = {
-        userInfo: {},
-        text: '恭喜我罗41分7板10助攻总比分4-1击败爵士，挺进西决！。'
+  data = {
+    userInfo: {},
+    text: '恭喜我罗41分7板10助攻总比分4-1击败爵士，挺进西决！。'
 
-    }
+  }
 
-    methods = {}
+  methods = {}
 
-    async onLoad() {
-        this.init();
-    }
-    onReady() {
-        // 滚动通告栏需要initScroll
-        this.$invoke('zanNoticebar', 'initZanNoticeBarScroll')
-    }
-    async init() {
-        // 获取到用户信息
-        let self = this
-        const Authentication = await OAuth.checkToken();
-        wx.getUserInfo({
-            withCredentials: false, //不返回敏感数据
-            success: rtn => {
-                console.log(rtn);
-                self.userInfo = rtn.userInfo;
-                self.$apply();
-            }
-        })
-        return;
-        XHR.http({
-            url: '/WXClass/queryWXuserOpenid',
-            method: 'POST',
-            data: { openId: Authentication }
-        }).then((response) => {
-            console.log(response);
-        })
-    }
-    // 下拉刷新
-    async onPullDownRefresh() {
-        wx.showLoading({
-            mask: true,
-            title: '加载中',
-        })
-        await this.init();
-        wx.hideLoading();
-        wx.stopPullDownRefresh();
-    }
-
+  async onLoad() {
+    this.init();
+  }
+  onReady() {
+    // 滚动通告栏需要initScroll
+    this.$invoke('zanNoticebar', 'initZanNoticeBarScroll');
+  }
+  async init() {
+    // 获取到用户信息
+    let self = this;
+    const Authentication = await OAuth.checkToken();
+    wx.getUserInfo({
+      withCredentials: false, //不返回敏感数据
+      success: rtn => {
+        console.log(rtn);
+        self.userInfo = rtn.userInfo;
+        self.$apply();
+      }
+    })
+    XHR.http({
+      url: API.queryWXuserOpenid,
+      method: 'POST',
+      data: { guid: '123' }
+    }).then((response) => {
+      console.log(response);
+    })
+  }
+  // 下拉刷新
+  async onPullDownRefresh() {
+    wx.showLoading({
+      mask: true,
+      title: '加载中',
+    })
+    await this.init();
+    wx.hideLoading();
+    wx.stopPullDownRefresh();
+  }
 }
-
 </script>

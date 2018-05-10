@@ -14,6 +14,25 @@
   .doc-subtitle {
     padding: 5px 15px 12px;
   }
+  .c-padding {
+    padding: 12px 15px;
+  }
+  .c-padding-lr {
+    padding: 0 15px;
+  }
+  .c-padding-tb {
+    padding: 12px 0;
+  }
+  .weui-uploader {
+    padding: 12px 15px;
+  }
+  .uploader-row {
+    height: 40px;
+    line-height: 40px;
+  }
+  .uploader-filename {
+    margin-right: 40px;
+  }
 </style>
 <template>
   <view class="pages">
@@ -21,12 +40,10 @@
       <view class="zan-icon zan-icon-send-gift zan-c-red"
         style="font-size:60px;margin-top:8px;"></view>
     </view>
-    <view class="doc-title">预约打印</view>
-    <view class="doc-subtitle">选择门店-上传文件-预约打印-到店取货，告别排队不用等。</view>
-
+    <view>支付</view>
     <view class="doc-title">
       <button class="zan-btn zan-btn--danger"
-        @tap="jumpFill">预约打印</button>
+        @tap="jumpStep">确定</button>
     </view>
   </view>
 </template>
@@ -34,37 +51,27 @@
 
 import wepy from 'wepy'
 import zanField from '@/components/zan/zan-field'
-export default class ReserveIndex extends wepy.page {
-  config = {
-    navigationBarTitleText: '预约打印'
-  }
+export default class Payment extends wepy.page {
   components = {
     zanField
   }
 
   data = {
+    form: {
+      areaIndex: 0
+    },
     area: [
       '南湖印务',
       '东湖印务',
       '北湖印务',
-      '西湖印务',
-    ],
-    areaIndex: 0
+      '西湖印务'
+    ]
   }
   onLoad() { }
   methods = {
-    onAreaChange(e) {
-      this.areaIndex = e.detail.value;
-      console.log(this.areaIndex);
-      this.$apply();
-    },
-    jumpFill() {
-      wx.navigateTo({
-        url: 'ChioceStore'
-      })
+    jumpStep() {
     }
   }
 
-  onLoad() { }
 }
 </script>
