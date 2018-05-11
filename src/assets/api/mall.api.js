@@ -1,5 +1,5 @@
-import baseapi from './base.api'
+import baseapi from './base.api';
 export default {
-  ...baseapi,
-  selectCarGroup: baseapi.domain + '/Group/selectCarGroup'
-}
+    ...baseapi,
+    selectCarGroup: baseapi.domain + '/Group/selectCarGroup'
+};

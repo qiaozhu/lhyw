@@ -5,6 +5,10 @@
 }
 
 @for $i from 1 to 24 {
-  .zan-col-#{$i} { width: $i * 100% / 24; }
-  .zan-col-offset-#{$i} { margin-left: $i * 100% / 24; }
+  .zan-col-#{$i} {
+    width: $i * 100% / 24;
+  }
+  .zan-col-offset-#{$i} {
+    margin-left: $i * 100% / 24;
+  }
 }

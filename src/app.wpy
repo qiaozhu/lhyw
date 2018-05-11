@@ -1,129 +1,135 @@
 <style lang="scss">
-  @import './style/font.scss';
-  @import './style/iconfont.scss';
-  @import './components/zanui/helper.scss';
+    //   @import './style/font.scss';
+    //   @import './style/iconfont.scss';
+    //   @import './components/zanui/helper.scss';
 </style>
 <script>
-import wepy from 'wepy'
-import 'wepy-async-function'
+import wepy from 'wepy';
+import 'wepy-async-function';
 
-import { setStore } from 'wepy-redux'
-import configStore from '@/store/index'
-import OAuth from '@/utils/OAuth'
+import { setStore } from 'wepy-redux';
+import configStore from '@/store/index';
+import OAuth from '@/utils/OAuth';
 
-const store = configStore()
-setStore(store)
+const store = configStore();
+setStore(store);
 
 export default class extends wepy.app {
-  config = {
-    pages: [
-      'pages/mycenter/index',
-      'pages/reserve/index',
-      'pages/reserve/ChioceStore',
-      'pages/reserve/UploadFile',
-      'pages/reserve/SetConfig',
-      'pages/reserve/Payment',
-      'pages/mall/index'
-    ],
-    window: {
-      navigationBarBackgroundColor: '#FAFAFA',
-      navigationBarTitleText: '南湖印务',
-      navigationBarTextStyle: 'black',
-      backgroundTextStyle: 'dark',
-      backgroundColor: '#F9F9F9',
-      enablePullDownRefresh: true//下拉刷新
-    },
-    tabBar: {
-      color: "#AAAAAA",
-      selectedColor: "#1cc466",
-      list: [{
-        pagePath: 'pages/reserve/index',
-        iconPath: 'assets/image/icon_component.png',
-        selectedIconPath: 'assets/image/icon_component_HL.png',
-        text: '预约'
-      }, {
-        pagePath: 'pages/mall/index',
-        iconPath: 'assets/image/icon_API.png',
-        selectedIconPath: 'assets/image/icon_API_HL.png',
-        text: '资料库'
-      }, {
-        pagePath: 'pages/mycenter/index',
-        iconPath: 'assets/image/wechat.png',
-        selectedIconPath: 'assets/image/wechatHL.png',
-        text: '我的'
-      }]
-    },
-    debug: true
-  }
-  globalData = {}
+    config = {
+        pages: [
+            'pages/mycenter/index',
+            'pages/reserve/index',
+            'pages/reserve/ChioceStore',
+            'pages/reserve/UploadFile',
+            'pages/reserve/SetConfig',
+            'pages/reserve/Payment',
+            'pages/mall/index'
+        ],
+        window: {
+            navigationBarBackgroundColor: '#FAFAFA',
+            navigationBarTitleText: '南湖印务',
+            navigationBarTextStyle: 'black',
+            backgroundTextStyle: 'dark',
+            backgroundColor: '#F9F9F9',
+            enablePullDownRefresh: true //下拉刷新
+        },
+        tabBar: {
+            color: '#AAAAAA',
+            selectedColor: '#1cc466',
+            list: [
+                {
+                    pagePath: 'pages/reserve/index',
+                    iconPath: 'assets/image/icon_component.png',
+                    selectedIconPath: 'assets/image/icon_component_HL.png',
+                    text: '预约'
+                },
+                {
+                    pagePath: 'pages/mall/index',
+                    iconPath: 'assets/image/icon_API.png',
+                    selectedIconPath: 'assets/image/icon_API_HL.png',
+                    text: '资料库'
+                },
+                {
+                    pagePath: 'pages/mycenter/index',
+                    iconPath: 'assets/image/wechat.png',
+                    selectedIconPath: 'assets/image/wechatHL.png',
+                    text: '我的'
+                }
+            ]
+        },
+        debug: true
+    };
+    globalData = {};
 
-  // 全局请求拦截器
-  constructor() {
-    super()//将指针指向app
-    this.use('requestfix')//处理并发
-    this.use('promisify');//使用promise
-  }
-
-  async onLaunch(options) {
-    console.log(options);
-    const self = this;
-    // 进入小程序判断是否允许授权
-    // 若未授权 弹框提示
-    wx.getSetting({
-      success(res) {
-        if (!res.authSetting['scope.record']) {
-          wx.authorize({
-            scope: 'scope.record',
-            success(rtn) {
-              console.log(rtn);
-              // 用户已同意授权 获取用户信息
-            }
-          })
-        } else {
-          // 用户已同意过授权
-          console.log('用户已同意过授权');
-        }
-      }
-    })
-  }
-
-  ohShow() {
-    const self = this;
-    wx.checkSession({
-      success: function () {
-        console.log(1);
-        //session_key 未过期
-      },
-      fail: function () {
-        console.log(2);
-        // session_key 已经失效 需要重新执行登录流程
-      }
-    })
-  }
-  // 主页放置校验session的方法  子页需要的时候调用
-  checkLogin() {
-    try {
-      // 先读取本地 如果有直接返回 否则发送请求获取
-      var udata = wx.getStorageSync('Authentication');
-      if (udata) {
-        return udata;
-      } else {
-        return OAuth.reqLogin();
-      }
-    } catch (e) {
-      return OAuth.reqLogin();
+    // 全局请求拦截器
+    constructor() {
+        super(); //将指针指向app
+        this.use('requestfix'); //处理并发
+        this.use('promisify'); //使用promise
     }
-  }
-  queryWXuser(phone) {
-    return wepy.request({
-      url: '/WXClass/queryWXuser',
-      method: 'GET',
-      data: {
-        phone: phone
-      }
-    }).then((response) => {
-      console.log(response);
-    })
-  }
+
+    async onLaunch(options) {
+        console.log(options);
+        const self = this;
+        // 进入小程序判断是否允许授权
+        // 若未授权 弹框提示
+        wx.getSetting({
+            success(res) {
+                if (!res.authSetting['scope.record']) {
+                    wx.authorize({
+                        scope: 'scope.record',
+                        success(rtn) {
+                            console.log(rtn);
+                            // 用户已同意授权 获取用户信息
+                        }
+                    });
+                } else {
+                    // 用户已同意过授权
+                    console.log('用户已同意过授权');
+                }
+            }
+        });
+    }
+
+    ohShow() {
+        const self = this;
+        wx.checkSession({
+            success: function() {
+                console.log(1);
+                //session_key 未过期
+            },
+            fail: function() {
+                console.log(2);
+                // session_key 已经失效 需要重新执行登录流程
+            }
+        });
+    }
+    // 主页放置校验session的方法  子页需要的时候调用
+    checkLogin() {
+        try {
+            // 先读取本地 如果有直接返回 否则发送请求获取
+            var udata = wx.getStorageSync('Authentication');
+            if (udata) {
+                return udata;
+            } else {
+                return OAuth.reqLogin();
+            }
+        } catch (e) {
+            return OAuth.reqLogin();
+        }
+    }
+    queryWXuser(phone) {
+        return wepy
+            .request({
+                url: '/WXClass/queryWXuser',
+                method: 'GET',
+                data: {
+                    phone: phone
+                }
+            })
+            .then(response => {
+                console.log(response);
+            });
+    }
 }
 </script>

@@ -1,4 +1,4 @@
-@import "common";
+@import 'common';
 
 .zan-cell {
   position: relative;
@@ -36,13 +36,13 @@
   text-align: right;
   color: #666;
 }
-.zan-cell__no-pading{
+.zan-cell__no-pading {
   padding: 0;
 }
 .zan-cell__no-pading .zan-cell__bd_padding {
   padding: 12px 0 12px 15px;
 }
-.zan-cell__no-pading .zan-cell__bd_padding .zan-form__input{
+.zan-cell__no-pading .zan-cell__bd_padding .zan-form__input {
   height: 26px;
 }
 .zan-cell__no-pading .zan-cell__ft_padding {
@@ -62,7 +62,7 @@
   position: absolute;
   top: 50%;
   right: 2px;
-  content: " ";
+  content: ' ';
   display: inline-block;
   height: 6px;
   width: 6px;

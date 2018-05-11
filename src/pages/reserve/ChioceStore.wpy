@@ -1,98 +1,91 @@
 <style lang="scss">
-  @import '../../components/zanui/color.scss';
-  @import '../../components/zanui/panel.scss';
-  @import '../../components/zanui/icon.scss';
-  @import '../../components/zanui/btn.scss';
-  @import '../../style/customize.scss';
-  .doc-title {
-    padding: 15px 0;
-    margin: 10px 15px;
-    line-height: 25px;
-    font-size: 25px;
-    color: #222;
-  }
-  .doc-subtitle {
-    padding: 5px 15px 12px;
-  }
-  .c-padding {
-    padding: 12px 15px;
-  }
-  .c-padding-lr {
-    padding: 0 15px;
-  }
-  .c-padding-tb {
-    padding: 12px 0;
-  }
-  .weui-uploader {
-    padding: 12px 15px;
-  }
-  .uploader-row {
-    height: 40px;
-    line-height: 40px;
-  }
-  .uploader-filename {
-    margin-right: 40px;
-  }
+    @import '../../components/zanui/color.scss';
+    @import '../../components/zanui/panel.scss';
+    @import '../../components/zanui/icon.scss';
+    @import '../../components/zanui/btn.scss';
+    @import '../../style/customize.scss';
+    .doc-title {
+        padding: 15px 0;
+        margin: 10px 15px;
+        line-height: 25px;
+        font-size: 25px;
+        color: #222;
+    }
+    .doc-subtitle {
+        padding: 5px 15px 12px;
+    }
+    .c-padding {
+        padding: 12px 15px;
+    }
+    .c-padding-lr {
+        padding: 0 15px;
+    }
+    .c-padding-tb {
+        padding: 12px 0;
+    }
+    .weui-uploader {
+        padding: 12px 15px;
+    }
+    .uploader-row {
+        height: 40px;
+        line-height: 40px;
+    }
+    .uploader-filename {
+        margin-right: 40px;
+    }
 </style>
 <template>
-  <view class="pages">
-    <view class="zan-center">
-      <view class="zan-icon zan-icon-send-gift zan-c-red"
-        style="font-size:60px;margin-top:8px;"></view>
+    <view class="pages">
+        <view class="zan-center">
+            <view class="zan-icon zan-icon-send-gift zan-c-red"
+                style="font-size:60px;margin-top:8px;"></view>
+        </view>
+        <view class="doc-title">选择门店</view>
+        <view class="doc-subtitle">请选择就近门店，方便取件。</view>
+        <view class="zan-panel bg-white">
+            <view class="zan-cell zan-field">
+                <view class="zan-cell__hd zan-field__title">选择门店</view>
+                <picker mode="selector"
+                    class="zan-field__input zan-cell__bd"
+                    range="{{ area }}"
+                    value="{{ form.areaIndex }}"
+                    bindchange="onAreaChange">
+                    {{ area[form.areaIndex] }}
+                </picker>
+            </view>
+        </view>
+        <view class="doc-title">
+            <button class="zan-btn zan-btn--danger"
+                @tap="onJumpStep">确定</button>
+        </view>
     </view>
-    <view class="doc-title">选择门店</view>
-    <view class="doc-subtitle">请选择就近门店，方便取件。</view>
-    <view class="zan-panel bg-white">
-      <view class="zan-cell zan-field">
-        <view class="zan-cell__hd zan-field__title">选择门店</view>
-        <picker mode="selector"
-          class="zan-field__input zan-cell__bd"
-          range="{{ area }}"
-          value="{{ form.areaIndex }}"
-          bindchange="onAreaChange">
-          {{ area[form.areaIndex] }}
-        </picker>
-      </view>
-    </view>
-    <view class="doc-title">
-      <button class="zan-btn zan-btn--danger"
-        @tap="jumpStep">确定</button>
-    </view>
-  </view>
 </template>
 <script>
-
-import wepy from 'wepy'
-import zanField from '@/components/zan/zan-field'
+import wepy from 'wepy';
+import zanField from '@/components/zan/zan-field';
 export default class ChioceStore extends wepy.page {
-  components = {
-    zanField
-  }
+    components = {
+        zanField
+    };
 
-  data = {
-    form: {
-      areaIndex: 0
-    },
-    area: [
-      '南湖印务',
-      '东湖印务',
-      '北湖印务',
-      '西湖印务'
-    ]
-  }
-  onLoad() { }
-  methods = {
-    onAreaChange(e) {
-      this.form.areaIndex = e.detail.value;
-      console.log(this.form.areaIndex);
-      // this.$apply();
-    },
-    jumpStep() {
-      wx.navigateTo({
-        url: 'UploadFile'
-      })
-    }
-  }
-
+    data = {
+        form: {
+            areaIndex: 0
+        },
+        area: ['南湖印务', '东湖印务', '北湖印务', '西湖印务']
+    };
+    onLoad() {}
+    methods = {
+        onAreaChange(e) {
+            this.form.areaIndex = e.detail.value;
+            console.log(this.form.areaIndex);
+            // this.$apply();
+        },
+        onJumpStep() {
+            wx.navigateTo({
+                url: 'UploadFile'
+            });
+        }
+    };
 }
 </script>

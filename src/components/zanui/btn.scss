@@ -1,4 +1,4 @@
-@import "common";
+@import 'common';
 
 .zan-btn {
   position: relative;
@@ -87,13 +87,13 @@
   background-color: transparent;
 }
 .zan-btn--plain.zan-btn--primary {
-  color: #06BF04;
+  color: #06bf04;
 }
 .zan-btn--plain.zan-btn--warn {
-  color: #FF6600;
+  color: #ff6600;
 }
 .zan-btn--plain.zan-btn--danger {
-  color: #FF4444;
+  color: #ff4444;
 }
 
 /* 重写button组件的button-hover样式 */
@@ -140,14 +140,14 @@
 /* disabled */
 .zan-btn.zan-btn--disabled {
   /* 防止样式被 button[disabled] 的规则覆盖，所以使用了important */
-  color: #999 ! important;
-  background: #f8f8f8 ! important;
-  border-color: #e5e5e5 ! important;
-  cursor: not-allowed ! important;
-  opacity: 1 ! important;
+  color: #999 !important;
+  background: #f8f8f8 !important;
+  border-color: #e5e5e5 !important;
+  cursor: not-allowed !important;
+  opacity: 1 !important;
 
   &::after {
-    border-color: #e5e5e5 ! important;
+    border-color: #e5e5e5 !important;
   }
 }
 
@@ -157,4 +157,3 @@
   margin-bottom: 0;
   margin-right: 0;
 }
-

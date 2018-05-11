@@ -1,77 +1,73 @@
 <style lang="scss">
-  @import '../../components/zanui/color.scss';
-  @import '../../components/zanui/panel.scss';
-  @import '../../components/zanui/icon.scss';
-  @import '../../components/zanui/btn.scss';
-  @import '../../style/customize.scss';
-  .doc-title {
-    padding: 15px 0;
-    margin: 10px 15px;
-    line-height: 25px;
-    font-size: 25px;
-    color: #222;
-  }
-  .doc-subtitle {
-    padding: 5px 15px 12px;
-  }
-  .c-padding {
-    padding: 12px 15px;
-  }
-  .c-padding-lr {
-    padding: 0 15px;
-  }
-  .c-padding-tb {
-    padding: 12px 0;
-  }
-  .weui-uploader {
-    padding: 12px 15px;
-  }
-  .uploader-row {
-    height: 40px;
-    line-height: 40px;
-  }
-  .uploader-filename {
-    margin-right: 40px;
-  }
+    @import '../../components/zanui/color.scss';
+    @import '../../components/zanui/panel.scss';
+    @import '../../components/zanui/icon.scss';
+    @import '../../components/zanui/btn.scss';
+    @import '../../style/customize.scss';
+    .doc-title {
+        padding: 15px 0;
+        margin: 10px 15px;
+        line-height: 25px;
+        font-size: 25px;
+        color: #222;
+    }
+    .doc-subtitle {
+        padding: 5px 15px 12px;
+    }
+    .c-padding {
+        padding: 12px 15px;
+    }
+    .c-padding-lr {
+        padding: 0 15px;
+    }
+    .c-padding-tb {
+        padding: 12px 0;
+    }
+    .weui-uploader {
+        padding: 12px 15px;
+    }
+    .uploader-row {
+        height: 40px;
+        line-height: 40px;
+    }
+    .uploader-filename {
+        margin-right: 40px;
+    }
 </style>
 <template>
-  <view class="pages">
-    <view class="zan-center">
-      <view class="zan-icon zan-icon-send-gift zan-c-red"
-        style="font-size:60px;margin-top:8px;"></view>
+    <view class="pages">
+        <view class="zan-center">
+            <view class="zan-icon zan-icon-send-gift zan-c-red"
+                style="font-size:60px;margin-top:8px;"></view>
+        </view>
+        <view>支付</view>
+        <view class="doc-title">
+            <button class="zan-btn zan-btn--danger"
+                @tap="onJumpStep">确定</button>
+        </view>
     </view>
-    <view>支付</view>
-    <view class="doc-title">
-      <button class="zan-btn zan-btn--danger"
-        @tap="jumpStep">确定</button>
-    </view>
-  </view>
 </template>
 <script>
-
-import wepy from 'wepy'
-import zanField from '@/components/zan/zan-field'
+import wepy from 'wepy';
+import zanField from '@/components/zan/zan-field';
 export default class Payment extends wepy.page {
-  components = {
-    zanField
-  }
+    components = {
+        zanField
+    };
 
-  data = {
-    form: {
-      areaIndex: 0
-    },
-    area: [
-      '南湖印务',
-      '东湖印务',
-      '北湖印务',
-      '西湖印务'
-    ]
-  }
-  onLoad() { }
-  methods = {
-    jumpStep() {
-    }
-  }
-
+    data = {
+        form: {
+            areaIndex: 0
+        },
+        area: ['南湖印务', '东湖印务', '北湖印务', '西湖印务']
+    };
+    onLoad() {}
+    methods = {
+        onJumpStep() {
+            wx.reLaunch({
+                url: 'UploadFile'
+            });
+        }
+    };
 }
 </script>
