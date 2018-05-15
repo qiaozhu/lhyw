@@ -40,7 +40,8 @@
             <view class="zan-icon zan-icon-send-gift zan-c-red"
                 style="font-size:60px;margin-top:8px;"></view>
         </view>
-        <view>设置配置</view>
+        <view class="doc-title">设置配置</view>
+        <view class="doc-subtitle">你刚选择的文件：{{files}}</view>
         <view class="doc-title">
             <button class="zan-btn zan-btn--danger"
                 @tap="onJumpStep">确定</button>
@@ -59,9 +60,13 @@ export default class SetConfig extends wepy.page {
         form: {
             areaIndex: 0
         },
-        area: ['南湖印务', '东湖印务', '北湖印务', '西湖印务']
+        area: ['南湖印务', '东湖印务', '北湖印务', '西湖印务'],
+        files: ''
     };
-    onLoad() {}
+    onLoad(options) {
+        console.log(options);
+        this.files = options.files;
+    }
     methods = {
         onJumpStep() {
             wx.navigateTo({

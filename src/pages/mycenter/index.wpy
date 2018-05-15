@@ -58,7 +58,7 @@
             <view class="avatar-name">{{userInfo.nickName}}</view>
         </view>
         <view class="zan-panel zan-center">
-            <view class="doc-title zan-hairline--bottom"
+            <view class="doc-title"
                 style="margin:10px 0;font-size:15px;">
                 <text>—</text>
                 我的订单
